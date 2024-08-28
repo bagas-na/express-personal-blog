@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm run tailwind:build && tsx ./src/bin/www.ts",
-    "devstart": "npm run tailwind:watch & tsx watch ./src/bin/www.ts",
+    "devstart": "tsx --watch ./src/bin/www.ts",
     "tailwind:build": "tailwindcss -i ./public/stylesheets/tailwind.css -o ./public/stylesheets/styles.css --minify",
     "tailwind:watch": "tailwindcss -i ./public/stylesheets/tailwind.css -o ./public/stylesheets/styles.css --watch"
   },
