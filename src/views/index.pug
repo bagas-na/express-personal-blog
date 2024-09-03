@@ -1,9 +1,11 @@
 extends layout
 
 block content
-  div(class="p-4 space-y-2 text-center")
-    h1(class="font-semibold text-2xl")= title
-    h2(class="text-lg")= subtitle
+  div(class="p-4 text-center")
+    h1(class="font-semibold text-2xl mb-2")= title
+    h2(class="text-lg mb-4")= subtitle
     div(class="text-base space-y-2 text-left") !{text}
-    a(class="inline-block py-2 px-4 bg-slate-200 rounded-md cursor-pointer hover:bg-slate-300 active:bg-slate-600 active:text-white", href="home") Start Here
+  
+    div(class="mt-4 flex justify-center")
+      a(class="inline-block py-2 px-4 bg-slate-200 rounded-md cursor-pointer hover:bg-slate-300 active:bg-slate-600 active:text-white", href="home") Start Here
 

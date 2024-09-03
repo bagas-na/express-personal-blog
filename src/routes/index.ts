@@ -6,7 +6,7 @@ import sanitize from "sanitize-html";
 
 const router = express.Router();
 
-/* GET home page. */
+/* GET root page. */
 const ARTICLE_FOLDER = "../../public/articles/";
 const ARTICLE_FILE = "index.md";
 const title = "Welcome to My Personal Blog";
