@@ -8,12 +8,12 @@ const router = express.Router();
 
 /* GET root page. */
 const ARTICLE_FOLDER = "../../public/articles/";
-const ARTICLE_FILE = "index.md";
+const FILENAME = "index.md";
 const title = "Welcome to My Personal Blog";
 const subtitle = "Unbelievable shenanigans awaits!";
 
 router.get("/", async function (req, res, next) {
-  const mdFilePath = path.join(__dirname, ARTICLE_FOLDER, ARTICLE_FILE);
+  const mdFilePath = path.join(__dirname, ARTICLE_FOLDER, FILENAME);
 
   try {
     const data = await fs.readFile(mdFilePath, "utf8");

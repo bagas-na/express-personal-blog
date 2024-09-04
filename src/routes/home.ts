@@ -18,17 +18,17 @@ router.get("/", async function (req, res, next) {
   let fileNames = await fs.readdir(mdPath);
   fileNames = fileNames.filter((name) => name !== "index.md");
 
-  if (!fileNames) {
-    res.render("home", { title, posts: [] });
-  }
-
   try {
     // Parse their front matter
     let frontMatters: Array<{[key: string]: string}>  = await Promise.all(
       fileNames.map(async (name) => {
         const filePath = path.join(mdPath, name);
         const fileData = await fs.readFile(filePath, "utf8");
-        return {...matter(fileData).data, id: name.split('.').slice(0, -1).join() };
+
+        // Get articleId from the name of the article md file, without the extension (.md)
+        const articleId = name.split('.').slice(0, -1).join()
+
+        return {...matter(fileData).data, id: articleId};
       })
     )
     
