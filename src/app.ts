@@ -4,9 +4,9 @@ import createError from 'http-errors';
 import logger from "morgan";
 import path from 'path';
 
+import articleRouter from './routes/article.ts';
 import homeRouter from './routes/home.ts';
 import indexRouter from './routes/index.ts';
-import usersRouter from './routes/users.ts';
 
 const app = express();
 
@@ -22,8 +22,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 // console.log(`serving static files from ${path.join(__dirname, '../public')}`)
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/home', homeRouter);
+app.use('/article', articleRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
