@@ -1,0 +1,20 @@
+extends layout
+
+block login
+  div(class="text-right px-4 pt-2")
+    p(class="inline-block")
+      a(class="font-medium hover:underline" href=`${referrer}`) Go Back
+
+block content
+  div(class="p-4 text-center min-h-48")
+    h1(class="font-semibold text-3xl mb-2")= title
+    p(class="text-lg mb-4")= subtitle
+    form(action="" method="post" class="flex flex-col items-center justify-center gap-2")
+      div(class="flex flex-col")
+        label(for="username") Username
+        input(type="text" name="username" id="username" class="border border-gray-500 rounded-lg px-2 py-0.5")
+      div(class="flex flex-col")
+        label(for="password") Password
+        input(type="password" name="password" id="password" class="border border-gray-500 rounded-lg px-2 py-0.5")
+
+      button(type="submit" class="inline-block mt-2 py-1.5 px-4 bg-slate-200 rounded-md cursor-pointer hover:bg-slate-300 active:bg-slate-600 active:text-white") Log in

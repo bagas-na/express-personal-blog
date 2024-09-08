@@ -11,8 +11,13 @@ const ARTICLE_FOLDER = "../../public/articles/";
 const title = "Blog Entries";
 
 router.get("/", async function (req, res, next) {
-  const dateTimeFormat = new Intl.DateTimeFormat('en-UK', {dateStyle: 'long', timeZone: 'UTC'});
+  const dateTimeFormat = new Intl.DateTimeFormat("en-UK", {
+    dateStyle: "long",
+    timeZone: "UTC",
+  });
   const mdPath = path.join(__dirname, ARTICLE_FOLDER);
+
+  console.log(`path=${req.baseUrl}${req.url}`);
 
   // Read all markdown files in the articles folder, excluding index.md
   let fileNames = await fs.readdir(mdPath);
@@ -20,18 +25,18 @@ router.get("/", async function (req, res, next) {
 
   try {
     // Parse their front matter
-    let frontMatters: Array<{[key: string]: string}>  = await Promise.all(
+    let frontMatters: Array<{ [key: string]: string }> = await Promise.all(
       fileNames.map(async (name) => {
         const filePath = path.join(mdPath, name);
         const fileData = await fs.readFile(filePath, "utf8");
 
         // Get articleId from the name of the article md file, without the extension (.md)
-        const articleId = name.split('.').slice(0, -1).join()
+        const articleId = name.split(".").slice(0, -1).join();
 
-        return {...matter(fileData).data, id: articleId};
+        return { ...matter(fileData).data, id: articleId };
       })
-    )
-    
+    );
+
     // Sort by publishDateTime in ascending order (earliest to latest)
     frontMatters.sort((a, b) => {
       const aDate = Date.parse(a.publishDateTime);
@@ -40,13 +45,18 @@ router.get("/", async function (req, res, next) {
     });
 
     // Format the date to dd-MMMM-yyyy
-    frontMatters = frontMatters.map(front => {
-      front.publishDateTime = dateTimeFormat.format(Date.parse(front.publishDateTime))
+    frontMatters = frontMatters.map((front) => {
+      front.publishDateTime = dateTimeFormat.format(
+        Date.parse(front.publishDateTime)
+      );
       return front;
-    })
+    });
 
-    res.render("home", { title, posts: frontMatters});
-
+    res.render("home", {
+      title,
+      posts: frontMatters,
+      referrer: `${req.baseUrl}${req.path}`,
+    });
   } catch (e) {
     res.status(500).send(`Error reading files from ${mdPath}`);
   }
