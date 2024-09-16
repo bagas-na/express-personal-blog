@@ -1,10 +1,11 @@
 doctype html
 html(lang="en")
   head
-    meta(charset="utf-8")
-    meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    link(rel='stylesheet' href='/stylesheets/styles.css')
-    title= title
+    block head
+      meta(charset="utf-8")
+      meta(name="viewport" content="width=device-width, initial-scale=1.0")
+      link(rel='stylesheet' href='/stylesheets/styles.css')
+      title= title
   body
     main(class="w-screen h-screen bg-slate-200 p-2")
       div(class="max-w-xl mx-auto bg-white border-2 border-black rounded-lg p-2 shadow-sm shadow-slate-500")

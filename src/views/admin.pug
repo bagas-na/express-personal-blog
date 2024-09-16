@@ -1,20 +1,33 @@
 extends layout
 
+block append head
+  script(src='/javascripts/admin.js' defer)
+
 block login
   div(class="text-right px-4 pt-2")
-    p(class="inline-block"). 
-      Go to #[a(class="font-medium hover:underline" href="/home") home]
+    p(class="inline-block").
+      Back to #[a(class="font-medium hover:underline" href=`/home`) article list]
 
 block content
-  div(class="p-4 text-center min-h-48")
-    h1(class="font-semibold text-3xl mb-2")= title
-    p(class="text-lg mb-4")= subtitle
-    form(action="" method="post" class="flex flex-col items-center justify-center gap-2")
-      div(class="flex flex-col")
-        label(for="username") Username
-        input(type="text" name="username" id="username" class="border border-gray-500 rounded-lg px-2 py-0.5")
-      div(class="flex flex-col")
-        label(for="password") Password
-        input(type="password" name="password" id="password" class="border border-gray-500 rounded-lg px-2 py-0.5")
+  div(class="p-4 text-left min-h-48")
+    h1(class="font-semibold text-2xl mb-4")= title
+    div(class="text-base space-y-3 text-left")
+      each post in posts
+        div(class="flex justify-between items-center gap-2 group")
+          div
+            a(class="font-medium group-hover:underline" href=`article/${post.id}`)= post.title
+            p(class="font-medium text-gray-400")= post.publishDateTime
+          div(class="space-x-2")
+            a(class="font-medium text-gray-400 hover:text-gray-600" href=`admin/edit/${post.id}`) Edit
+            button(class="font-medium text-gray-400 cursor-pointer hover:text-gray-600" data-id=`${post.id}`) Delete
+      else
+        div(class="h-24 flex justify-center items-center")
+          p ...No entries found
 
-      button(type="submit" class="inline-block mt-2 py-1.5 px-4 bg-slate-200 rounded-md cursor-pointer hover:bg-slate-300 active:bg-slate-600 active:text-white") Log in
+    div(class="mt-4 flex justify-center")
+      a(class="inline-block py-2 px-4 bg-slate-200 text-center rounded-md hover:bg-slate-300 active:bg-slate-600 active:text-white" href="/admin/new") Add new entry
+
+
+
+
+
