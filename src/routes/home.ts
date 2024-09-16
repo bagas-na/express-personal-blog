@@ -17,13 +17,11 @@ router.get("/", async function (req, res, next) {
   });
   const mdPath = path.join(__dirname, ARTICLE_FOLDER);
 
-  console.log(`path=${req.baseUrl}${req.url}`);
-
-  // Read all markdown files in the articles folder, excluding index.md
-  let fileNames = await fs.readdir(mdPath);
-  fileNames = fileNames.filter((name) => name !== "index.md");
-
   try {
+    // Read all markdown files in the articles folder, excluding index.md
+    let fileNames = await fs.readdir(mdPath);
+    fileNames = fileNames.filter((name) => name !== "index.md");
+    
     // Parse their front matter
     let frontMatters: Array<{ [key: string]: string }> = await Promise.all(
       fileNames.map(async (name) => {
