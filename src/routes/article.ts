@@ -23,19 +23,12 @@ router.get("/:articleId", async function (req, res, next) {
     const { data: frontMatter, content: articleContent } = matter(data);
 
     const title = frontMatter.title;
-    const publishDateTime = dateTimeFormat.format(
-      Date.parse(frontMatter.publishDateTime)
-    );
+    const publishDateTime = dateTimeFormat.format(Date.parse(frontMatter.publishDateTime));
 
     const rawHtml = await marked.parse(articleContent);
     const sanitizedHtml = sanitize(rawHtml);
 
-    res.render("article", {
-      title,
-      subtitle: publishDateTime,
-      text: sanitizedHtml,
-      referrer: `${req.baseUrl}${req.path}`,
-    });
+    res.render("article", { title, subtitle: publishDateTime, text: sanitizedHtml });
   } catch (e) {
     res.status(500).send(`Error reading markdown from ${mdFilePath}`);
   }

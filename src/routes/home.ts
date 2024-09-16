@@ -46,17 +46,11 @@ router.get("/", async function (req, res, next) {
 
     // Format the date to dd-MMMM-yyyy
     frontMatters = frontMatters.map((front) => {
-      front.publishDateTime = dateTimeFormat.format(
-        Date.parse(front.publishDateTime)
-      );
+      front.publishDateTime = dateTimeFormat.format(Date.parse(front.publishDateTime));
       return front;
     });
 
-    res.render("home", {
-      title,
-      posts: frontMatters,
-      referrer: `${req.baseUrl}${req.path}`,
-    });
+    res.render("home", { title, posts: frontMatters });
   } catch (e) {
     res.status(500).send(`Error reading files from ${mdPath}`);
   }

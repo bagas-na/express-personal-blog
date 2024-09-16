@@ -19,12 +19,7 @@ router.get("/", async function (req, res, next) {
     const data = await fs.readFile(mdFilePath, "utf8");
     const rawHtml = await marked.parse(data);
     const html = sanitize(rawHtml);
-    res.render("index", {
-      title,
-      subtitle,
-      text: html,
-      referrer: `${req.baseUrl}${req.path}`,
-    });
+    res.render("index", { title, subtitle, text: html });
   } catch (e) {
     res.status(500).send(`Error reading markdown from ${mdFilePath}`);
   }
