@@ -7,8 +7,7 @@ const router = express.Router();
 
 /* GET /home page. */
 const ARTICLE_FOLDER = "../../public/articles/";
-
-const title = "Blog Entries";
+const TITLE = "Blog Entries";
 
 router.get("/", async function (req, res, next) {
   const dateTimeFormat = new Intl.DateTimeFormat("en-UK", {
@@ -48,7 +47,7 @@ router.get("/", async function (req, res, next) {
       return front;
     });
 
-    res.render("home", { title, posts: frontMatters });
+    res.render("home", { title: TITLE, posts: frontMatters });
   } catch (e) {
     res.status(500).send(`Error reading files from ${mdPath}`);
   }

@@ -7,11 +7,9 @@ import sanitize from "sanitize-html";
 import { authMiddleware } from "../utils/auth";
 
 const router = express.Router();
-
-/* GET /home page. */
 const ARTICLE_FOLDER = "../../public/articles/";
 
-const title = "Blog Entries";
+const TITLE = "Blog Entries";
 
 router.use(authMiddleware);
 

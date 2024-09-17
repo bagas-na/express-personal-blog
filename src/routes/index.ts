@@ -9,8 +9,8 @@ const router = express.Router();
 /* GET root page. */
 const ARTICLE_FOLDER = "../../public/articles/";
 const FILENAME = "index.md";
-const title = "Welcome to My Personal Blog";
-const subtitle = "Unbelievable shenanigans awaits!";
+const TITLE = "Welcome to My Personal Blog";
+const SUBTITLE = "Unbelievable shenanigans awaits!";
 
 router.get("/", async function (req, res, next) {
   const mdFilePath = path.join(__dirname, ARTICLE_FOLDER, FILENAME);
@@ -19,7 +19,7 @@ router.get("/", async function (req, res, next) {
     const data = await fs.readFile(mdFilePath, "utf8");
     const rawHtml = await marked.parse(data);
     const html = sanitize(rawHtml);
-    res.render("index", { title, subtitle, text: html });
+    res.render("index", { title: TITLE, subtitle: SUBTITLE, text: html });
   } catch (e) {
     res.status(500).send(`Error reading markdown from ${mdFilePath}`);
   }
