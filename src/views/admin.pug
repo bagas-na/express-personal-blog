@@ -9,7 +9,7 @@ block login
       Back to #[a(class="font-medium hover:underline" href=`/home`) article list]
 
 block content
-  div(class="p-4 text-left min-h-48")
+  div(class="p-4 pt-0 text-left min-h-48")
     h1(class="font-semibold text-2xl mb-4")= title
     div(class="text-base space-y-3 text-left")
       each post in posts
@@ -17,7 +17,7 @@ block content
           div
             a(class="font-medium group-hover:underline" href=`article/${post.id}`)= post.title
             p(class="font-medium text-gray-400")= post.publishDateTime
-          div(class="space-x-2")
+          div(class="space-x-4")
             a(class="font-medium text-gray-400 hover:text-gray-600" href=`admin/edit/${post.id}`) Edit
             button(class="font-medium text-gray-400 cursor-pointer hover:text-gray-600" data-id=`${post.id}`) Delete
       else
@@ -25,7 +25,7 @@ block content
           p ...No entries found
 
     div(class="mt-4 flex justify-center")
-      a(class="inline-block py-2 px-4 bg-slate-200 text-center rounded-md hover:bg-slate-300 active:bg-slate-600 active:text-white" href="/admin/new") Add new entry
+      a(class="inline-block py-2 px-4 font-medium text-white bg-slate-500 text-center rounded-md hover:bg-slate-600 active:bg-slate-700 active:text-white" href="/admin/new") Add new entry
 
 
 
