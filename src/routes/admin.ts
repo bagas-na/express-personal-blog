@@ -5,13 +5,21 @@ import fs from "node:fs/promises";
 import path from "path";
 import sanitize from "sanitize-html";
 import { authMiddleware } from "../utils/auth";
+import deleteArticleRouter from "./admin/deleteArticle";
+import editArticleRouter from "./admin/editArticle";
+import newArticleRouter from "./admin/newArticle";
 
 const router = express.Router();
 const ARTICLE_FOLDER = "../../public/articles/";
 
 const TITLE = "Blog Entries";
 
+// Basic auth middleware
 router.use(authMiddleware);
+
+router.post("/article/new", newArticleRouter); // Article content in post body, id chosen on the server
+router.put("/article/:articleId", editArticleRouter); // Edited article content in post body, id chosen from path params
+router.delete("/article/delete", deleteArticleRouter); // Chosen Id to be deleted chosen in the delete body
 
 router.get("/", async function (req, res, next) {
   const dateTimeFormat = new Intl.DateTimeFormat("en-UK", {
@@ -51,33 +59,18 @@ router.get("/", async function (req, res, next) {
       return front;
     });
 
-    res.render("admin", { title, posts: frontMatters });
+    res.render("admin", { title: TITLE, posts: frontMatters });
   } catch (e) {
     res.status(500).send(`Error reading files from ${mdPath}`);
   }
 });
 
 router.get("/edit/:articleId", (req, res) => {
-  res.status(400).send("Page unavailable");
+  res.render("editArticle", { title: "Edit Article" });
 });
 
-router.get("/article/new", (req, res) => {
-  res.status(400).send("Page unavailable");
-});
-
-router.delete("/article/:articleId", async (req, res) => {
-  const articleId = JSON.parse(req.body.articleId);
-  console.log(`Deleting article ${articleId}`);
-
-  const mdFilePath = path.join(__dirname, ARTICLE_FOLDER, articleId + ".md");
-
-  try {
-    await fs.unlink(mdFilePath);
-    res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify({ success: true, articleId }));
-  } catch (e) {
-    res.status(500).send(`Error deleting article with id=${articleId}`);
-  }
+router.get("/new", (req, res) => {
+  res.render("newArticle", { title: "New Article" });
 });
 
 export default router;
