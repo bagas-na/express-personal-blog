@@ -1,6 +1,6 @@
 # Express Personal Blog
 
-A personal blog application built using Express, TypeScript, and Tailwind CSS. This project allows users to create, edit, and delete blog posts, demonstrating the implementation of a basic blogging platform with dynamic content rendering.
+A personal blog application built using Express, TypeScript, and Tailwind CSS. This project allows users to create, edit, and delete blog posts, demonstrating the implementation of a basic blogging platform with dynamic content rendering. This is part of [roadmap.sh](https://roadmap.sh)'s Backend [projects](https://roadmap.sh/backend/projects). Read more details about this project [here](https://roadmap.sh/projects/personal-blog).
 
 ## Features
 
@@ -38,6 +38,7 @@ A personal blog application built using Express, TypeScript, and Tailwind CSS. T
    ```bash
    npm start
    ```
+   Then navigate to http://localhost:3000/
 
 ## Folder Structure
 - public/: Contains static files (CSS, JS, md).
