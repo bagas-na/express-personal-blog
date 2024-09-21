@@ -1,7 +1,9 @@
 import express from "express";
 import matter from "gray-matter";
+import { marked } from "marked";
 import fs from "node:fs/promises";
 import path from "path";
+import sanitize from "sanitize-html";
 import { authMiddleware } from "../utils/auth";
 import newArticleHandler from "./admin/createArticle";
 import deleteArticleHandler from "./admin/deleteArticle";
@@ -63,9 +65,30 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-router.get("/edit/:articleId", (req, res) => {
-  res.render("editArticle", { title: "Edit Article" });
+router.get("/edit/:articleId", async (req, res) => {
+  const fileName = req.params.articleId;
+
+  const mdFilePath = path.join(__dirname, ARTICLE_FOLDER, fileName + ".md");
+
+  try {
+    const data = await fs.readFile(mdFilePath, "utf8");
+    const { data: frontMatter, content: articleContent } = matter(data);
+
+    const currentArticleTitle = frontMatter.title;
+    const currentArticleDateTime = new Date(Date.parse(frontMatter.publishDateTime)).toISOString().slice(0, -8);
+    
+    const rawHtml = await marked.parse(articleContent);
+    const currentArticleText = sanitize(rawHtml);
+    // console.log({currentArticleDateTime, currentArticleTitle, currentArticleText})
+
+    res.render("editArticle", { title: "Edit Article", currentArticleTitle, currentArticleDateTime, currentArticleText });
+  } catch (e) {
+    res.status(500).send(`Error reading markdown from ${mdFilePath}`);
+  }
 });
+
+
+
 
 router.get("/new", (req, res) => {
   res.render("createArticle", { title: "New Article" });
