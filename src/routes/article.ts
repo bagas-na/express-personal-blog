@@ -14,6 +14,8 @@ router.get("/:articleId", async function (req, res, next) {
 
   const dateTimeFormat = new Intl.DateTimeFormat("en-UK", {
     dateStyle: "long",
+    timeStyle: "short",
+    hourCycle: "h23",
     timeZone: "UTC",
   });
   const mdFilePath = path.join(__dirname, ARTICLE_FOLDER, fileName + ".md");
