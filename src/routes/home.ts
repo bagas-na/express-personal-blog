@@ -17,7 +17,7 @@ router.get("/", async function (req, res, next) {
   const mdPath = path.join(__dirname, ARTICLE_FOLDER);
 
   try {
-    // Read all markdown files in the articles folder, excluding index.md
+    // Read all markdown file names in the articles folder, excluding index.md
     let fileNames = await fs.readdir(mdPath);
     fileNames = fileNames.filter((name) => name !== "index.md");
     

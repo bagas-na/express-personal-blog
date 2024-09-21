@@ -6,7 +6,7 @@ const ARTICLE_FOLDER = "../../../public/articles/";
 
 const deleteArticle = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const articleId = JSON.parse(req.body.articleId);
-  console.log(`Deleting article ${articleId}`);
+  // console.log(`Deleting article ${articleId}`);
 
   const mdFilePath = path.join(__dirname, ARTICLE_FOLDER, articleId + ".md");
 
