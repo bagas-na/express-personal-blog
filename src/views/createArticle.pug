@@ -15,7 +15,7 @@ block content
         input(type="text" placeholder="Put your article title here" name="title" id="title" required min class="w-full px-2 py-1 border border-slate-600 rounded-lg")
       div
         label(for="dateTime" class="mr-auto") Publishing Date-time
-        input(type="datetime-local" name="dateTime" id="dateTime" class="w-full px-2 py-1 border border-slate-600 rounded-lg")
+        input(type="datetime-local" name="dateTime" id="dateTime" class="w-full px-2 py-1 border border-slate-600 rounded-lg" required)
       div
         label
         textarea(spellcheck="true" name="content" id="content" placeholder="Content" required minlength="10" maxlength="2000" class="w-full h-96 px-2 py-1 border border-slate-600 rounded-lg resize-none")

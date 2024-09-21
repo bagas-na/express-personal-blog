@@ -1,13 +1,11 @@
 import express from "express";
 import matter from "gray-matter";
-import marked from "marked";
 import fs from "node:fs/promises";
 import path from "path";
-import sanitize from "sanitize-html";
 import { authMiddleware } from "../utils/auth";
-import deleteArticleRouter from "./admin/deleteArticle";
-import editArticleRouter from "./admin/editArticle";
-import newArticleRouter from "./admin/newArticle";
+import newArticleHandler from "./admin/createArticle";
+import deleteArticleHandler from "./admin/deleteArticle";
+import editArticleHandler from "./admin/editArticle";
 
 const router = express.Router();
 const ARTICLE_FOLDER = "../../public/articles/";
@@ -17,9 +15,9 @@ const TITLE = "Blog Entries";
 // Basic auth middleware
 router.use(authMiddleware);
 
-router.post("/article/new", newArticleRouter); // Article content in post body, id chosen on the server
-router.put("/article/:articleId", editArticleRouter); // Edited article content in post body, id chosen from path params
-router.delete("/article/delete", deleteArticleRouter); // Chosen Id to be deleted chosen in the delete body
+router.post("/article/new", ...newArticleHandler);
+router.put("/article/:articleId", editArticleHandler);
+router.delete("/article/:articleId", deleteArticleHandler);
 
 router.get("/", async function (req, res, next) {
   const dateTimeFormat = new Intl.DateTimeFormat("en-UK", {
@@ -70,7 +68,7 @@ router.get("/edit/:articleId", (req, res) => {
 });
 
 router.get("/new", (req, res) => {
-  res.render("newArticle", { title: "New Article" });
+  res.render("createArticle", { title: "New Article" });
 });
 
 export default router;
